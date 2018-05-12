@@ -19,6 +19,12 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :developement, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rails-controller-testing'
+  gem 'shoulda'
+  gem 'factory_girl_rails', '~> 4.0'
+end
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -40,3 +46,6 @@ gem 'bootstrap-sass'
 group :development do
   gem 'listen', '~> 3.0.5'
 end
+
+# Use Devise for user authentication
+  gem 'devise'
