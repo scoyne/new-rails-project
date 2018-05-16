@@ -1,5 +1,6 @@
 class WikisController < ApplicationController
   def index
+    @user = User.find_by(id: session[:user_id])
     @wikis = Wiki.all
   end
 
@@ -21,6 +22,8 @@ class WikisController < ApplicationController
       redirect_to @wiki
     else
       flash.now[:alert] = "There was an error saving the wiki. Please try again."
+      puts "$$$$$$$$$$$$$$$$$$$$"
+      puts @wiki.errors.messages
       render :new
     end
   end
@@ -39,6 +42,8 @@ class WikisController < ApplicationController
       redirect_to @wiki
     else
       flash.now[:alert] = "There was an error updating your wiki. Please try again."
+      puts @wiki.errors.messages
+
       render :edit
     end
   end

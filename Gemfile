@@ -49,3 +49,11 @@ end
 
 # Use Devise for user authentication
   gem 'devise'
+
+  group :development do
+    gem 'popper_js', '>= 1.12.3'
+  end
+
+  group :debug do
+    gem 'byebug', platforms: [:mri], require: false
+  end
