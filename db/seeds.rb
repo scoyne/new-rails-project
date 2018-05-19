@@ -13,6 +13,7 @@ require 'random_data'
     email:    RandomData.random_email,
     password: RandomData.random_sentence
   )
+
 end
 users = User.all
 
@@ -26,10 +27,22 @@ users = User.all
 end
 wikis = Wiki.all
 
-user = User.first
-user.update_attributes!(
-  email: 'coyne99@gmail.com',
-  password: 'helloworld'
+admin = User.create!(
+  email:    'admin@example.com',
+  password: 'helloworld',
+  role:     'admin'
+)
+
+premium = User.create!(
+  email:    'premium@example.com',
+  password: 'helloworld',
+  role:     'premium'
+)
+
+standard = User.create!(
+  email:    'standard@example.com',
+  password: 'helloworld',
+  role:     'standard'
 )
 
 puts "Seed finished"

@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+
   def index
     @user = User.find_by(id: session[:user_id])
     @wikis = Wiki.all
@@ -22,8 +23,6 @@ class WikisController < ApplicationController
       redirect_to @wiki
     else
       flash.now[:alert] = "There was an error saving the wiki. Please try again."
-      puts "$$$$$$$$$$$$$$$$$$$$"
-      puts @wiki.errors.messages
       render :new
     end
   end
@@ -59,4 +58,18 @@ class WikisController < ApplicationController
       render :show
     end
   end
+
+  private
+  def wiki_params
+    params.require(:wiki).permit(:title, :body)
+  end
+
+  def authorize_user
+    wiki = Wiki.find(params[:id])
+    unless current_user == wiki.user || current_user.admin?
+      flash[:alert] = "You can only edit public wiki pages or your own wiki page."
+      redirect_to [wiki, wiki]
+    end
+  end
+
 end
