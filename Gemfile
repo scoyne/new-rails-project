@@ -52,3 +52,6 @@ end
 
 # Use Pundit for user classes / policies
   gem 'pundit'
+
+# Use Faker to create fake data
+  gem 'faker'
