@@ -33,9 +33,11 @@ gem 'turbolinks', '~> 5' # Turbolinks makes navigating your web application fast
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'thor', '0.19.1'
 gem 'bootstrap-sass' # Use Bootstrap SASS
-gem 'devise' # Use Devise for user authentication
+gem 'figaro', '1.0' # Use Figaro to create store enviromental variiables (mostly for secure API integration)
+gem 'pusher' # Use for pushing API calls
 gem 'pundit' # Use Pundit for user classes / policies
 gem 'faker' # Use Faker to create fake data
+gem 'devise' # Use Devise for user authentication
 gem 'stripe' # Use Stripe to process payments and upgrade account to premium
 
 group :development do

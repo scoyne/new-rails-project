@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :wikis
   resources :welcome
-  resources :charges
+  resources :charges, only: [:new, :create]
+
 
   devise_for :users, controllers: { confirmation: 'confirmations' }
 
