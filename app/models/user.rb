@@ -14,9 +14,9 @@ class User < ApplicationRecord
     self.role ||= :standard # defining the initial / default role 
   end
 
-  protected
-  def confirmation_required?
-    false
-  end
+ # protected
+ # def confirmation_required?
+ #   false
+ # end
 
 end
