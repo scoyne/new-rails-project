@@ -14,6 +14,7 @@ class WikisController < ApplicationController
 
   def create
     @wiki = current_user.wikis.new(wiki_params)
+    authorize @wiki
 
     if @wiki.save
       flash[:notice] = "The Wiki was saved successfully."
@@ -43,6 +44,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
