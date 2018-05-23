@@ -10,10 +10,11 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
-    @wiki = current_user.wikis.new(wiki_params)
+    @wiki = Wiki.new(wiki_params)
     authorize @wiki
 
     if @wiki.save
@@ -26,7 +27,7 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def update
@@ -43,7 +44,6 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
     authorize @wiki
 
     if @wiki.destroy
@@ -56,16 +56,12 @@ class WikisController < ApplicationController
   end
 
   private
+
   def wiki_params
     params.require(:wiki).permit(:title, :body)
   end
 
   def authorize_user
-    wiki = Wiki.find(params[:id])
-    unless current_user == wiki.user || current_user.admin?
-      flash[:alert] = "You can only edit public wiki pages or your own wiki page."
-      redirect_to [wiki, wiki]
-    end
+    @wiki = Wiki.find(params[:id])
   end
-
 end
