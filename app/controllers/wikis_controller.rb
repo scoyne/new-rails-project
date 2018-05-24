@@ -13,9 +13,8 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new(user: current_user)
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
+    @wiki = Wiki.new(wiki_params)
+    @wiki.user = current_user
 
     if @wiki.save
       flash[:notice] = "The Wiki was saved successfully."
@@ -27,13 +26,13 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.find(params[:id]) # setting the instance varibale
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
+    @wiki = Wiki.find(params[:id]) # setting the instance variable
+    @wiki.assign_attributes(wiki_params) # adding :title & :body with wiki_params
+    authorize @wiki # calling the update authorization from WikiPolicy
 
     if @wiki.save
       flash[:notice] = "Wiki was updated successfully!"
@@ -45,7 +44,8 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
+    @wiki = Wiki.find(params[:id]) # setting the instance variable
+    authorize @wiki # calling the destroy authorization from WikiPolicy
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -57,16 +57,8 @@ class WikisController < ApplicationController
   end
 
   private
-
   def wiki_params
     params.require(:wiki).permit(:title, :body)
-  end
-
-  def authorize_user
-    unless current_user
-      flash[:alert] = "You do not have permission to perform that."
-      redirect_to wikis_path
-    end
   end
 
 end

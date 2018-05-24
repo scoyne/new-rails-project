@@ -1,7 +1,9 @@
-class WelcomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+class WelcomeController <ApplicationController
+  before_action :authenticate_user!
 
   def index
   end
 
+  def show
+  end
 end
